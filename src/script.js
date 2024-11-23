@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { Sky } from 'three/examples/jsm/Addons.js'
 import GUI from 'lil-gui'
 
 // Shader imports
@@ -84,6 +85,16 @@ gui.add(waterMaterial.uniforms.uSmallWavesIterations, 'value').min(0).max(10).st
 const water = new THREE.Mesh(waterGeometry, waterMaterial)
 water.rotation.x = - Math.PI * 0.5
 scene.add(water)
+
+// Add Sky
+const sky = new Sky()
+sky.material.uniforms.turbidity.value = 3
+sky.material.uniforms.rayleigh.value = 10
+sky.material.uniforms.mieCoefficient.value = 0.1
+sky.material.uniforms.mieDirectionalG.value = 0.95
+sky.material.uniforms.sunPosition.value = new THREE.Vector3(0.8, -0.05, -2)
+sky.scale.set(100,100,100)
+scene.add(sky)
 
 /**
  * Sizes
